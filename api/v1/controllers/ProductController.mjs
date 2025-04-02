@@ -98,10 +98,7 @@ class ProductController {
   }
   static async deleteProduct(req, res) {
     const id = req.body.id
-    if (!id)
-      return res
-        .status(400)
-        .json({ success: false, msg: "Id must be provided" })
+
     try {
       const product = await ProductManager.deleteById(id)
       if (!product)

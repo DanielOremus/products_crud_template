@@ -103,10 +103,14 @@ class MongooseCRUDManager {
   }
   async updateById(id, itemProps) {
     try {
-      return await this.model.findByIdAndUpdate(id, itemProps, {
-        new: true,
-        runValidators: true,
-      })
+      const item = await this.model.findById(id)
+      console.log(item)
+
+      if (!item) throw new Error("Item not found")
+      Object.assign(item, itemProps)
+      await item.save()
+
+      return item
     } catch (error) {
       throw new Error("Error updating item by id: " + error.message)
     }
