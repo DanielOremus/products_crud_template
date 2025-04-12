@@ -4,6 +4,7 @@ import { fileURLToPath } from "url"
 import path from "path"
 import cors from "cors"
 import express from "express"
+import helmet from "helmet"
 import expressMongoSanitize from "express-mongo-sanitize"
 
 const __filename = fileURLToPath(import.meta.url) // get the resolved path to the file
@@ -22,6 +23,7 @@ export default (app) => {
   app.use(express.json())
   app.use(express.urlencoded({ extended: false }))
   app.use(cookieParser())
+  app.use(helmet())
   app.use(express.static(path.join(__dirname, "public")))
 
   //Cors
